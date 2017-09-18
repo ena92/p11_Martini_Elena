@@ -1,0 +1,1 @@
+Per importare, aprire eclipse, quindi File -> open project from file system -> selezionare la cartella contenente i file scaricati e assicurarsi che gli elementi spuntati siano tutti selezionati, quindi fare ok.
