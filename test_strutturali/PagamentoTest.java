@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.After;
@@ -12,67 +13,55 @@ import org.junit.Test;
 public class PagamentoTest {
 	Pagamento pagamento;
 	Cliente cliente;
-	Film film;
-	double totale;
+	Biglietto biglietto,biglietto2;
 	SQLDataBase sqlDataBase;
+	ArrayList<Prenotazione> prList;
+	Prenotazione prenotazione,prenotazione2;
 	@Before
 	public void setUp() throws Exception {
+		Sala sala = new Sala(1,"Roof",3,3);
+		ArrayList<Programmazione> prog = new ArrayList<Programmazione>();
+		prog.add(new Programmazione(1,"15:00",sala));
+		prList = new ArrayList<Prenotazione>();
+		Film film = new Film(1, "Spiderman",2017,"Azione","120 min",prog);
 		Date date = new Date();
+		Preventivo preventivo = new Preventivo(1,13.0);
+		date = new Date();
+		biglietto = new Biglietto("15:00",date,film.getProgrammazione().get(0).sala,film,Tipo.STANDARD);
+		ArrayList<Biglietto> bigliettoList = new ArrayList<Biglietto>();
+		bigliettoList.add(biglietto);
+		prenotazione = new Prenotazione(1,0,bigliettoList);
+		prenotazione2 = new Prenotazione(1,1,bigliettoList);
+		prList.add(prenotazione);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		date = formatter.parse("31/05/1992");
-		cliente = new Cliente (1,"Elena","ena92","Pippo.1992",date,"Via torti","Ciao");
+		cliente = new Cliente (1,"Elena","ena92","Pippo.1992",date,"Via torti","Ciao",true,prList);
 		sqlDataBase = new SQLDataBase();
 		sqlDataBase.creaDataBase();
 		sqlDataBase.inserisciUtente(cliente.getNome(), cliente.getNomeutente(), cliente.getPassword(), cliente.getSuggerimento(), "31/05/1992", cliente.getIndirizzo());
-		totale =13.0;
-		film = new Film(1,"Spy",2017,"Commedia","120min");
-		pagamento = new Pagamento(cliente,film,totale);
 		
+		pagamento = new Pagamento(cliente,prenotazione,preventivo);
 	}
 	@Test
 	public void setGetMetodhsTest() throws Exception{
 		assertEquals(cliente,pagamento.getCliente());
-		assertEquals(film,pagamento.getFilm());
-		assertEquals(totale,pagamento.getTotale(),0);
+		assertEquals(prenotazione,pagamento.getPrenotazione());
+		assertEquals(13.0,pagamento.getPreventivo().getTotale(),0);
 		Date date = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		date = formatter.parse("31/05/1992");
-		Cliente cliente2 = new Cliente(2,"Alice","ena92","Pippo.1992",date,"Via torti","Ciao");
-		Film film2 = new Film(2,"Go!",2017,"Azione","120min");
+		Cliente cliente2 = new Cliente(2,"Alice","ena92","Pippo.1992",date,"Via torti","Ciao",true,prList);
 		pagamento.setCliente(cliente2);
-		pagamento.setFilm(film2);
-		pagamento.setTotale(6.5);
+		pagamento.setPrenotazione(prenotazione2);
+		pagamento.setPreventivo(new Preventivo(2,6.5));
 		
 		assertEquals(cliente2,pagamento.getCliente());
-		assertEquals(film2,pagamento.getFilm());
-		assertEquals(6,pagamento.getTotale(),5);
+		assertEquals(prenotazione2,pagamento.getPrenotazione());
+		assertEquals(6,pagamento.getPreventivo().getTotale(),5);
 	}
-	@Test
-	public void pagaConCartaTest() throws Exception {
-		assertEquals(1,pagamento.pagaConCarta("1234567890123456", 123, "06/18"));
-		assertEquals(0,pagamento.pagaConCarta("12345", 123, "06/18"));
-		assertEquals(0,pagamento.pagaConCarta("1234567890123456",22,"06/18"));
-		assertEquals(0,pagamento.pagaConCarta("1234567890123456",2211,"06/18"));
-		pagamento = new Pagamento(cliente,film,0);
-		assertEquals(0,pagamento.pagaConCarta("1234567890123456",221,"06/18"));
-	}
-	@Test
-	public void pagaConPaypalTest() throws Exception{
-		assertEquals(1,pagamento.pagaConPayPal("ele@gmail.com", "Pippo.1992"));
-		assertEquals(0,pagamento.pagaConPayPal("ele@gmai.i", "Pippo.1992"));
-		pagamento = new Pagamento(cliente,film,0);
-		assertEquals(0,pagamento.pagaConPayPal("ele@gmai.it", "Pippo.1992"));
-	}
-	@Test
-	public void pagaConAbbonamentoTest() throws Exception{
-		assertEquals(1,pagamento.pagaConAbbonamento(cliente));
-		cliente.setAbbonamento(false);
-		assertEquals(0,pagamento.pagaConAbbonamento(cliente));
-		pagamento = new Pagamento(cliente,film,0);
-		assertEquals(0,pagamento.pagaConAbbonamento(cliente));
-	}
+
 	@After
-	public void delete() throws SQLException{
+	public void delete() throws Exception{
 		sqlDataBase.deleteTableUtentiReg();
 	}
 }

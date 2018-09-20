@@ -1,47 +1,69 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 // TODO: Auto-generated Javadoc
 
 /**
- * The Class Cliente.
+ * La Class Cliente. Serve per inizializzare un Cliente e presenta una funzione per l'eliminazione di una prenotazione
  */
 public class Cliente {
-	
-	/** The nome. */
+
+	/** Il nome. */
 	String nome;
-	
-	/** The id. */
+
+	/** L' id. */
 	int id;
-	
-	/** The nomeutente. */
+
+	/** Il nomeutente. */
 	String nomeutente;
-	
-	/** The password. */
+
+	/** La password. */
 	String password;
-	
-	/** The data nascita. */
+
+	/** La data di nascita. */
 	Date dataNascita;
-	
-	/** The indirizzo. */
+
+	/** L' indirizzo. */
 	String indirizzo;
-	
-	/** The suggerimento. */
+
+	/** Il suggerimento. */
 	String suggerimento;
-	
-	/** The abbonamento. */
+
+	/** L' abbonamento. */
 	boolean abbonamento = true;
-	
-	
+	/** Le condizioni. */
+	boolean condizioni = false;
+
+	/** Le prenotazioni. */
+	ArrayList<Prenotazione> prenotazioni;
+
 	/**
-	 * Instantiates a new cliente.
+	 * Instantiates un nuovo cliente.
 	 *
-	 * @param nome the nome
-	 * @param nomeutente the nomeutente
-	 * @param password the password
-	 * @param dataNascita the data nascita
-	 * @param indirizzo the indirizzo
-	 * @param suggerimento the suggerimento
+	 * @param id
+	 *            l' id
+	 * @param nome
+	 *            il nome
+	 * @param nomeutente
+	 *            il nomeutente
+	 * @param password
+	 *            la password
+	 * @param dataNascita
+	 *            la data nascita
+	 * @param indirizzo
+	 *            l' indirizzo
+	 * @param suggerimento
+	 *            il suggerimento
+	 * @param condizioni
+	 *            le condizioni
+	 * @param prenotazioni
+	 * 			  le prenotazioni
 	 */
-	public Cliente(int id, String nome, String nomeutente, String password, Date dataNascita, String indirizzo, String suggerimento){
+	public Cliente(int id, String nome, String nomeutente, String password, Date dataNascita, String indirizzo,
+			String suggerimento, boolean condizioni, ArrayList<Prenotazione> prenotazioni) {
 		this.id = id;
 		this.nome = nome;
 		this.nomeutente = nomeutente;
@@ -49,151 +71,239 @@ public class Cliente {
 		this.dataNascita = dataNascita;
 		this.indirizzo = indirizzo;
 		this.suggerimento = suggerimento;
+		this.condizioni = condizioni;
+		this.prenotazioni = prenotazioni;
 	}
-	
+
 	/**
-	 * Gets the nome.
+	 * Gets il nome.
 	 *
-	 * @return the nome
+	 * @return il nome
 	 */
 	public String getNome() {
 		return nome;
 	}
-	
+
 	/**
-	 * Sets the nome.
+	 * Sets il nome.
 	 *
-	 * @param nome the new nome
+	 * @param nome
+	 *            il nuovo nome
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
-	 * Gets the id.
+	 * Gets l' id.
 	 *
-	 * @return the id
+	 * @return l' id
 	 */
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
-	 * Sets the id.
+	 * Sets l' id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            il nuovo id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * Gets the nomeutente.
+	 * Gets il nome utente.
 	 *
-	 * @return the nomeutente
+	 * @return il nome utente
 	 */
 	public String getNomeutente() {
 		return nomeutente;
 	}
-	
+
 	/**
-	 * Sets the nomeutente.
+	 * Sets il nome utente.
 	 *
-	 * @param nomeutente the new nomeutente
+	 * @param nomeutente
+	 *            the new nome utente
 	 */
 	public void setNomeUtente(String nomeutente) {
 		this.nomeutente = nomeutente;
 	}
+
 	/**
-	 * Gets the suggerimento.
+	 * Gets il suggerimento.
 	 *
-	 * @return the suggerimento
+	 * @return il suggerimento
 	 */
 	public String getSuggerimento() {
 		return suggerimento;
 	}
-	
+
 	/**
-	 * Sets the suggerimento.
+	 * Sets il suggerimento.
 	 *
-	 * @param suggerimento the new suggerimento
+	 * @param suggerimento
+	 *            il nuovo suggerimento
 	 */
 	public void setSuggerimento(String suggerimento) {
 		this.suggerimento = suggerimento;
 	}
+
 	/**
-	 * Gets the password.
+	 * Gets la password.
 	 *
-	 * @return the password
+	 * @return la password
 	 */
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
-	 * Sets the password.
+	 * Sets la password.
 	 *
-	 * @param password the new password
+	 * @param password
+	 *            la nuova password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
-	 * Gets the data nascita.
+	 * Gets la data di nascita.
 	 *
-	 * @return the data nascita
+	 * @return la data di nascita
 	 */
 	public Date getDataNascita() {
 		return dataNascita;
 	}
-	
+
 	/**
-	 * Sets the data nascita.
+	 * Sets la data di nascita.
 	 *
-	 * @param dataNascita the new data nascita
+	 * @param dataNascita
+	 *            la nuova data di nascita
 	 */
 	public void setDataNascita(Date dataNascita) {
 		this.dataNascita = dataNascita;
 	}
-	
+
 	/**
-	 * Gets the indirizzo.
+	 * Gets l'indirizzo.
 	 *
-	 * @return the indirizzo
+	 * @return l' indirizzo
 	 */
 	public String getIndirizzo() {
 		return indirizzo;
 	}
-	
+
 	/**
-	 * Sets the indirizzo.
+	 * Sets l' indirizzo.
 	 *
-	 * @param indirizzo the new indirizzo
+	 * @param indirizzo
+	 *            il nuovo indirizzo
 	 */
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
-	
+
 	/**
-	 * Checks if is abbonamento.
+	 * Controllo se il cliente e' abbonamento.
 	 *
-	 * @return true, if is abbonamento
+	 * @return true, se e' abbonamento
 	 */
 	public boolean isAbbonamento() {
 		return abbonamento;
 	}
-	
+
 	/**
-	 * Sets the abbonamento.
+	 * Sets l' abbonamento.
 	 *
-	 * @param abbonamento the new abbonamento
+	 * @param abbonamento
+	 *            il nuovo abbonamento
 	 */
 	public void setAbbonamento(boolean abbonamento) {
 		this.abbonamento = abbonamento;
 	}
-	public boolean getAbbonamento(){
+
+	/**
+	 * Gets l' abbonamento.
+	 *
+	 * @return l' abbonamento
+	 */
+	public boolean getAbbonamento() {
 		return abbonamento;
 	}
-	
+
+	/**
+	 * Sets le condizioni.
+	 *
+	 * @param condizioni
+	 *            le nuove condizioni
+	 */
+	public void setCondizioni(boolean condizioni) {
+		this.condizioni = condizioni;
+	}
+
+	/**
+	 * Gets le condizioni.
+	 *
+	 * @return le condizioni
+	 */
+	public boolean getCondizioni() {
+		return condizioni;
+	}
+
+	/**
+	 * Gets le prenotazioni.
+	 *
+	 * @return le prenotazioni
+	 */
+	public ArrayList<Prenotazione> getPrenotazioni() {
+		return prenotazioni;
+	}
+
+	/**
+	 * Sets le prenotazioni.
+	 *
+	 * @param prenotazioni
+	 *            le nuove prenotazioni
+	 */
+	public void setPrenotazioni(ArrayList<Prenotazione> prenotazioni) {
+		this.prenotazioni = prenotazioni;
+	}
+	/**
+	 * Funzione per permettere all'utente di eliminare una prenotazione la cui ora di inizio e' superiore a 30 min
+	 * 
+	 * @param id
+	 * 			l'identificativo univoco della prenotazione
+	 * @throws ParseException 
+	 * 			l'eccezione
+	 * 
+	 * @return un intero: vale 0 se l'eliminazione e' andata a buon fine -1 in caso contrario
+	 */
+	public int eliminazionePrenotazione(int id) throws ParseException{
+		Iterator<Prenotazione> iteratore = this.prenotazioni.iterator();
+		while(iteratore.hasNext()){
+			Prenotazione prenotazione = iteratore.next();
+			if(prenotazione.getId() == id){
+				Calendar calendar = Calendar.getInstance();
+				Date dateOraCorrente = null;
+			    Date dateOraInizio = null;
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+				String orario = prenotazione.getBiglietti().get(0).getOrario();
+				String cT = calendar.getTime().getHours() + ":" + calendar.getTime().getMinutes();
+				dateOraCorrente = simpleDateFormat.parse(cT);
+				dateOraInizio = simpleDateFormat.parse(orario);
+				long diff = dateOraInizio.getTime() - dateOraCorrente.getTime();
+				if(diff >=  30 * 60 * 1000){
+					iteratore.remove();
+					return 0;
+				}
+				return -1;
+			}
+		}
+		return -1;
+	}
 }

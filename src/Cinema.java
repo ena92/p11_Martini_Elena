@@ -1,142 +1,180 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.Iterator;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Cinema.
- * La classe cinema, si riferisce agli user case: ricerca cinema e seleziona cinema
+ * La Classe Cinema. La classe cinema, si riferisce agli user case: ricerca
+ * cinema e seleziona cinema
  */
 public class Cinema {
-	
-	/** Attributi */
+
+	/** Attributi. */
+	int id;
+
+	/** Il nome. */
 	String nome;
+
+	/** La citta'. */
 	String city;
+
+	/** L' indirizzo. */
 	String indirizzo;
-	/** The sale. */
+	/** Le sale. */
 	ArrayList<Sala> sale;
-	
-	/** The film. */
+
+	/** I film. */
 	ArrayList<Film> film;
-	
+
 	/**
-	 * Instantiates a new cinema.
+	 * Instantiates un nuovo cinema.
 	 *
-	 * @param nome the nome
-	 * @param city the city
-	 * @param indirizzo the indirizzo
+	 * @param id
+	 *            l' id
+	 * @param nome
+	 *            il nome
+	 * @param city
+	 *            la citta'
+	 * @param indirizzo
+	 *            l' indirizzo
 	 */
-	public Cinema(String nome, String city, String indirizzo){
+	public Cinema(int id, String nome, String city, String indirizzo) {
+		this.id = id;
 		this.nome = nome;
 		this.city = city;
 		this.indirizzo = indirizzo;
 	}
-	
+
 	/**
-	 * Instantiates a new cinema.
-	 */
-	public Cinema() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/**
-	 * Gets the nome.
+	 * Gets l' id.
 	 *
-	 * @return the nome
+	 * @return l' id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Sets l' id.
+	 *
+	 * @param id
+	 *            il nuovo id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Gets il nome.
+	 *
+	 * @return il nome
 	 */
 	public String getNome() {
 		return nome;
 	}
-	
+
 	/**
-	 * Sets the nome.
+	 * Sets il nome.
 	 *
-	 * @param nome the new nome
+	 * @param nome
+	 *            il nuovo nome
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
-	 * Gets the city.
+	 * Gets la citta'.
 	 *
-	 * @return the city
+	 * @return la citta'
 	 */
 	public String getCity() {
 		return city;
 	}
-	
+
 	/**
-	 * Sets the city.
+	 * Sets la citta'.
 	 *
-	 * @param city the new city
+	 * @param city
+	 *            la nuova citta'
 	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	/**
-	 * Gets the indirizzo.
+	 * Gets l' indirizzo.
 	 *
-	 * @return the indirizzo
+	 * @return l' indirizzo
 	 */
 	public String getIndirizzo() {
 		return indirizzo;
 	}
-	
+
 	/**
-	 * Sets the indirizzo.
+	 * Sets l' indirizzo.
 	 *
-	 * @param indirizzo the new indirizzo
+	 * @param indirizzo
+	 *            il nuovo indirizzo
 	 */
 	public void setIndirizzo(String indirizzo) {
 		this.indirizzo = indirizzo;
 	}
-	
+
 	/**
-	 * Gets the sale.
+	 * Gets le sale.
 	 *
-	 * @return the sale
+	 * @return le sale
 	 */
 	public ArrayList<Sala> getSale() {
 		return sale;
 	}
-	
+
 	/**
-	 * Sets the film.
+	 * Sets i film.
 	 *
-	 * @param film the new film
+	 * @param film
+	 *            i nuovi film
 	 */
 	public void setFilm(ArrayList<Film> film) {
 		this.film = film;
 	}
+
 	/**
-	 * Gets the film.
+	 * Gets i film.
 	 *
-	 * @return the film
+	 * @return i film
 	 */
 	public ArrayList<Film> getFilm() {
 		return this.film;
 	}
-	
+
 	/**
-	 * Sets the sale.
+	 * Sets le sale.
 	 *
-	 * @param sale the new sale
+	 * @param sale
+	 *            le nuove sale
 	 */
 	public void setSale(ArrayList<Sala> sale) {
 		this.sale = sale;
 	}
+
 	/**
-	 * Ricerca cinema.
-	 * @param cinemaNome String
-	 * @return il cinema trovato se esiste.
+	 * Ricerca film, ricerca tra i film presenti nel cinema se esiste quello con
+	 * il titolo cercato.
+	 *
+	 * @param filmTitolo
+	 *            il titolo del film
+	 * @return il film, se esiste e trasmesso nel cinema selezionato
 	 */
-	public Cinema ricercaCinema(String cinemaNome){	
-		if(this.getNome().toLowerCase().contains(cinemaNome) || this.getNome().contains(cinemaNome)){
-			return this;
-		}else {
-			return null;
+	public Film ricercaFilm(String filmTitolo) {
+		Iterator<Film> iterator = this.film.iterator();
+		while (iterator.hasNext()) {
+			Film film = iterator.next();
+			if (film.getTitolo().toLowerCase().contains(filmTitolo)
+					|| film.getTitolo().contains(filmTitolo)) {
+				return film;
+			}
 		}
+		return null;
 	}
 }

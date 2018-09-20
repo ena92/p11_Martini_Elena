@@ -13,17 +13,19 @@ public class SQLDataBaseTest {
 	Sala sala,sala2;
 	Cinema cinema;
 	Cliente cliente,cliente2;
+	private ArrayList<Prenotazione> prList;
 	@Before
 	public void setUp() throws Exception {
 		db = new SQLDataBase();
-		sala = new Sala("A1",2,2);
-		sala2 = new Sala("A2",2,2);
-		cinema = new Cinema("TheSpace","Genova","Via porto");
+		prList = new ArrayList<Prenotazione>();
+		sala = new Sala(1,"A1",2,2);
+		sala2 = new Sala(2,"A2",2,2);
+		cinema = new Cinema(1,"TheSpace","Genova","Via porto");
 		String dataNascita = "31/05/1992";
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = formatter.parse(dataNascita);
-		cliente = new Cliente(1,"Elena","ena92","Pippo.1992",data,"Via GrossiBianchi","Pippo.1992");
-		cliente2 = new Cliente(2,"Alessia","ale3","Alessia.33",data,"Via Torti","Alessia.33");
+		cliente = new Cliente(1,"Elena","ena92","Pippo.1992",data,"Via GrossiBianchi","Pippo.1992",true,prList);
+		cliente2 = new Cliente(2,"Alessia","ale3","Alessia.33",data,"Via Torti","Alessia.33",true,prList);
 		db.creaDataBase();
 		db.inserisciUtente(cliente.getNome(), cliente.getNomeutente(), cliente.getPassword(), cliente.getSuggerimento(), dataNascita, cliente.getIndirizzo());
 		db.creaDataBaseMappe(sala2.getNome(), cinema.getNome(), sala2.getPostiTotali());
@@ -48,7 +50,6 @@ public class SQLDataBaseTest {
 		assertEquals(clienteRegistrato,db.restituisciClienteRegistrato("ena92", "Pippo.1992"));
 		assertNull(db.restituisciClienteRegistrato(cliente2.getNomeutente(), cliente2.getPassword()));
 	}
-	
 	@After
 	public void deleteDataBase() throws Exception{
 		db.deleteTableUtentiReg();

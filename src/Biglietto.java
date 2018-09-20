@@ -1,149 +1,157 @@
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Date;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Biglietto.
- * La classe biglietto ha come unica funziona, quella di ritornare il biglietto per il film selezionato
+ * La Classe Biglietto. La classe biglietto ha una funzione, quella di ritornare il
+ * biglietto per il film selezionato
  */
 public class Biglietto {
-	
-	/**  Attributi. */
-	double prezzo;
-	
-	/** The orario. */
+	/** L' orario. */
 	String orario;
-	
-	/** The data. */
+
+	/** La data. */
 	Date data;
-	
-	/** The sala. */
+
+	/** La sala. */
 	Sala sala;
-	
-	/** The film. */
+
+	/** Il film. */
 	Film film;
-	
-	/**
-	 * Gets the prezzo.
-	 *
-	 * @return the prezzo
-	 */
-	public double getPrezzo() {
-		return prezzo;
-	}
+
+	/** Il tipo. */
+	Tipo tipo;
 
 	/**
-	 * Sets the prezzo.
+	 * Gets l' orario.
 	 *
-	 * @param prezzo the new prezzo
-	 */
-	public void setPrezzo(double prezzo) {
-		this.prezzo = prezzo;
-	}
-
-	/**
-	 * Gets the orario.
-	 *
-	 * @return the orario
+	 * @return l' orario
 	 */
 	public String getOrario() {
 		return orario;
 	}
 
 	/**
-	 * Sets the orario.
+	 * Sets l' orario.
 	 *
-	 * @param orario the new orario
+	 * @param orario
+	 *            il nuovo orario
 	 */
 	public void setOrario(String orario) {
 		this.orario = orario;
 	}
 
 	/**
-	 * Gets the data.
+	 * Gets la data.
 	 *
-	 * @return the data
+	 * @return la data
 	 */
 	public Date getData() {
 		return data;
 	}
 
 	/**
-	 * Sets the data.
+	 * Sets la data.
 	 *
-	 * @param data the new data
+	 * @param data
+	 *            la nuova data
 	 */
 	public void setData(Date data) {
 		this.data = data;
 	}
 
 	/**
-	 * Gets the sala.
+	 * Gets la sala.
 	 *
-	 * @return the sala
+	 * @return la sala
 	 */
 	public Sala getSala() {
 		return sala;
 	}
 
 	/**
-	 * Sets the sala.
+	 * Sets la sala.
 	 *
-	 * @param sala the new sala
+	 * @param sala
+	 *            la nuova sala
 	 */
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
 
 	/**
-	 * Gets the film.
+	 * Gets il film.
 	 *
-	 * @return the film
+	 * @return il film
 	 */
 	public Film getFilm() {
 		return film;
 	}
 
 	/**
-	 * Sets the film.
+	 * Sets il film.
 	 *
-	 * @param film the new film
+	 * @param film
+	 *            il nuovo film
 	 */
 	public void setFilm(Film film) {
 		this.film = film;
-	}	
-	
+	}
+
 	/**
-	 * Instantiates a new biglietto.
+	 * Gets il tipo.
 	 *
-	 * @param prezzo the prezzo
-	 * @param orario the orario
-	 * @param data the data
-	 * @param sala the sala
-	 * @param film the film
+	 * @return il tipo
 	 */
-	public Biglietto(double prezzo,String orario, Date data, Sala sala, Film film){
-		this.prezzo = prezzo;
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	/**
+	 * Sets il tipo.
+	 *
+	 * @param tipo
+	 *            il nuovo tipo
+	 */
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	/**
+	 * Instantiates un nuovo biglietto.
+	 *
+	 * @param orario
+	 *            l' orario
+	 * @param data
+	 *            la data
+	 * @param sala
+	 *            la sala
+	 * @param film
+	 *            il film
+	 * @param tipo
+	 *            il tipo
+	 */
+	public Biglietto(String orario, Date data, Sala sala, Film film, Tipo tipo) {
 		this.orario = orario;
 		this.data = data;
 		this.sala = sala;
 		this.film = film;
+		this.tipo = tipo;
 	}
-	
+
 	/**
 	 * Visualizza biglietto.
 	 *
 	 * @return una stringa con i dati del biglietto.
 	 */
-	public String visualizzaBiglietto(){
-		System.out.println("Film: "+this.film.titolo);
-		System.out.println("Orario: "+this.orario);
+	public String visualizzaBiglietto() {
+		System.out.println("Film: " + this.film.titolo);
+		System.out.println("Orario: " + this.orario);
 		String dataStringa = new SimpleDateFormat("dd/MM/yyyy").format(this.data);
-		System.out.println("Data: "+dataStringa);
-		System.out.println("Prezzo per biglietto: "+this.prezzo);
-		System.out.println("Sala: "+this.sala.nome);
-		return "Film: "+this.film.titolo + "\nOrario: " + this.orario+ "\nData: " + dataStringa+"\nPrezzo: "+this.prezzo+"\nSala: "+this.sala.nome;
+		System.out.println("Data: " + dataStringa);
+		System.out.println("Prezzo per biglietto: " + this.tipo.getPrezzo());
+		System.out.println("Sala: " + this.sala.nome);
+		return "Film: " + this.film.titolo + "\nOrario: " + this.orario + "\nData: " + dataStringa + "\nPrezzo: "
+				+ this.tipo.getPrezzo() + "\nSala: " + this.sala.nome;
 	}
 }

@@ -1,8 +1,10 @@
 import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,20 +14,21 @@ public class AutenticazioneTest {
 	Autenticazione autenticazione;
 	Autenticazione autenticazione2;
 	SQLDataBase sqlDataBase;
+	ArrayList<Prenotazione> prList;
 	@Before
 	public void setUp() throws Exception {
 		String dataNascita = "31/05/1992";
+		prList = new ArrayList<Prenotazione>();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date data = null;
 		data = formatter.parse(dataNascita);
-		cliente = new Cliente(1,"Elena","ena92","Pippo.1992",data,"Via GrossiBianchi","Pippo.1992");
-		
+		cliente = new Cliente(1,"Elena","ena92","Pippo.1992",data,"Via GrossiBianchi","Pippo.1992",true,prList);
 		sqlDataBase = new SQLDataBase();
 		sqlDataBase.creaDataBase();
 		sqlDataBase.inserisciUtente("Elena","ena92","Pippo.1992","Pippo.1992",dataNascita,"Via GrossiBianchi");
-		cliente2 = new Cliente(2,"Daniele","brigno","Daniele.1992",data,"Via opera pia","Daniele.1992");
-		autenticazione = new Autenticazione(cliente.nomeutente, cliente.password);
-		autenticazione2 = new Autenticazione(cliente2.nomeutente, cliente.password);
+		cliente2 = new Cliente(2,"Daniele","brigno","Daniele.1992",data,"Via opera pia","Daniele.1992",true,prList);
+		autenticazione = new Autenticazione(1,cliente);
+		autenticazione2 = new Autenticazione(2,cliente2);
 	}
 
 	@Test
@@ -35,21 +38,24 @@ public class AutenticazioneTest {
 	}
 	@Test
 	public void recuperaPasstest() throws Exception{
-		assertEquals("Pippo.1992",autenticazione.recuperaPass(cliente.nomeutente));
-		assertNull(autenticazione2.recuperaPass(cliente2.nomeutente));
+		assertEquals("Pippo.1992",autenticazione.recuperaPass());
+		assertNull(autenticazione2.recuperaPass());
 	}
 	@Test
 	public void setMethods(){
-		autenticazione.setNomeUtente(cliente2.nomeutente);
-		autenticazione.setPassword(cliente2.password);
-		assertEquals(cliente2.nomeutente,autenticazione.getNomeUtente());
-		assertEquals(cliente2.password, autenticazione.getPassword());
+		autenticazione.setId(2);
+		autenticazione.setCliente(cliente2);
+		assertEquals(2,autenticazione.getId());
+		assertEquals(cliente2,autenticazione.getCliente());
 	
 	}
 	@Test
 	public void getMethods(){
-		assertEquals(cliente.nomeutente,autenticazione.getNomeUtente());
-		assertEquals(cliente.password, autenticazione.getPassword());
+		assertEquals(1,autenticazione.getId());
+		assertEquals(cliente,autenticazione.getCliente());
 	}
-	
+	@After
+	public void delete() throws Exception{
+		sqlDataBase.deleteTableUtentiReg();
+	}
 }

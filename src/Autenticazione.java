@@ -1,87 +1,98 @@
-import java.util.Random;
-import java.util.Scanner;
-
 // TODO: Auto-generated Javadoc
 /**
- * The Class Autenticazione.
- * La classe autenticazione, permette di autenticare, un cliente del circuito cinema precedentemente iscritto
- * permette inoltre di recuperare la password in caso si fosse dimenticata.
- * Si riferisce allo user case: "Autenticarsi"
+ * La Classe Autenticazione. La classe autenticazione, permette di autenticare
+ * un cliente del circuito cinema precedentemente iscritto, permette inoltre di
+ * recuperare la password in caso si fosse dimenticata.
  */
 public class Autenticazione {
 	
-	/** Attributi */
-	String nomeUtente;
-	String password;
-	
+	/** Attributi. */
+	int id;
+	Cliente cliente;
+
 	/**
-	 * Gets nome utente.
+	 * Gets l' id.
 	 *
-	 * @return nome utente
+	 * @return l' id
 	 */
-	public String getNomeUtente() {
-		return nomeUtente;
+	public int getId() {
+		return id;
 	}
-	
+
 	/**
-	 * Sets nome utente.
+	 * Sets l' id.
 	 *
-	 * @param nomeUtente the new nome utente
+	 * @param id
+	 *            il nuovo id
 	 */
-	public void setNomeUtente(String nomeUtente) {
-		this.nomeUtente = nomeUtente;
+	public void setId(int id) {
+		this.id = id;
 	}
+
 	/**
-	 * Gets password.
+	 * Gets cliente.
 	 *
-	 * @return password
+	 * @return cliente
 	 */
-	public String getPassword() {
-		return password;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	
+
 	/**
-	 * Sets password.
+	 * Sets cliente.
 	 *
-	 * @param password the new password
+	 * @param cliente
+	 *            il nuovo cliente
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	
-	public Autenticazione(String nomeUtente, String password){
-		this.nomeUtente = nomeUtente;
-		this.password = password;
-	}
+
 	/**
-	 * Verify dati.
-	 * La seguente funzione verifica che i dati inseriti abbiano corrispondenza nel database
-	 * @return true, if successful
-	 * @throws Exception 
+	 * Instantiates una nuova autenticazione.
+	 *
+	 * @param id 
+	 * 			  l'id
+	 * @param cliente
+	 *            il cliente
 	 */
-	public boolean verifyDat() throws Exception{
+	public Autenticazione(int id, Cliente cliente) {
+		this.id = id;
+		this.cliente = cliente;
+	}
+
+	/**
+	 * Verify dati. La seguente funzione verifica che i dati inseriti abbiano
+	 * corrispondenza nel database
+	 *
+	 * @return true, se username e password corrispondono ad un utente registrato, false in caso negativo
+	 * @throws Exception
+	 *             l' eccezione
+	 */
+	public boolean verifyDat() throws Exception {
 		SQLDataBase db = new SQLDataBase();
-		if(db.controlloAutenticazione(this.nomeUtente, this.password)){
+		if (db.controlloAutenticazione(this.cliente.nomeutente, this.cliente.password)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Recupera pass.
-	 *La seguente funzione ritorna la frase di suggerimento inserita dall'utente in fase di registrazione se
-	 *al nome utente è associata una autenticazione
-	 * @param username the username
-	 * @return the string
-	 * @throws Exception 
+	 * Recupera pass. La seguente funzione ritorna la frase di suggerimento
+	 * inserita dall'utente in fase di registrazione, se al nome utente e'
+	 * associata una autenticazione
+	 * 
+	 * @return la stringa contente la frase di suggerimento
+	 * @throws Exception
+	 *             l' eccezione
 	 */
-	public String recuperaPass(String username) throws Exception{
+	public String recuperaPass() throws Exception {
 		SQLDataBase db = new SQLDataBase();
-		if(db.usernameNonRegistrata(username)){
+		if (db.usernameNonRegistrata(this.cliente.nomeutente)) {
 			return null;
-		}else{
-			String fraseSuggerimento = db.suggerimentoPass(username);
+		} else {
+			String fraseSuggerimento = db.suggerimentoPass(this.cliente.nomeutente);
 			return fraseSuggerimento;
 		}
 	}

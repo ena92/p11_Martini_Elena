@@ -17,8 +17,10 @@ public class FilmTestFunzionali {
 	@Parameter(0) public String input;
 	@Before
 	public void setUp() throws Exception {
-		film = new Film(1,"Spy",2017,"Commedia","120min");
-		cinema = new Cinema("Odeon","Genova","Via Torti");
+		ArrayList<Programmazione> prog = new ArrayList<Programmazione>();
+		prog.add(new Programmazione(1,"21:00",new Sala(1,"Roof",2,2)));
+		film = new Film(1,"Spy",2017,"Commedia","120min",prog);
+		cinema = new Cinema(1,"Odeon","Genova","Via Torti");
 		ArrayList<Film> arrayListF = new ArrayList<Film>();
 		arrayListF.add(film);
 		cinema.setFilm(arrayListF);
@@ -33,11 +35,17 @@ public class FilmTestFunzionali {
 			{"py"}
 		});
 	}
-	//Si riferisce allo scenario principale di ricerca film
+	//Si rifersice allo scenario principale accedere alla scheda del film
 	@Test
-	public void test() {
-		assertEquals(film,film.ricercaFilm(cinema, input));
-		assertNull(film.ricercaFilm(cinema, "Ap"));
+	public void schedaFilm(){
+		ArrayList<String> scheda = new ArrayList<String>(); 
+		scheda = film.schedaFilm();
+		ArrayList<String> scheda2 = new ArrayList<String>();
+		scheda2.add(film.getTipo());
+		scheda2.add(film.getDurata());
+		scheda2.add(String.valueOf(film.getAnnoPubblicazione()));
+		scheda2.add(String.valueOf(film.getStelle()));
+		assertEquals(scheda2,scheda);
 	}
-
+	
 }

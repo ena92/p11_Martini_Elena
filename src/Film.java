@@ -1,146 +1,207 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Film.
- * La classe si riferisce allo user case ricerca film
+ * La classe Film. La classe descrive gli attributi dei film
  */
 public class Film {
-	
-	/** Attributi */
+
+	/** Attributi. */
 	int id;
+
+	/** Il titolo. */
 	String titolo;
+
+	/** L' anno pubblicazione. */
 	int annoPubblicazione;
+
+	/** Il tipo. */
 	String tipo;
+
+	/** La durata. */
 	String durata;
+
 	/**
-	 * Instantiates a new film.
-	 *
-	 * @param id the id
-	 * @param titolo the titolo
-	 * @param annoPubblicazione the anno pubblicazione
-	 * @param tipo the tipo
-	 * @param durata the durata
+	 * Le stelle. Sono settate a 5 per ogni film dal momento che non è stata
+	 * implementata una funzione per l'aggiunta recensione
 	 */
-	public Film(int id, String titolo, int annoPubblicazione, String tipo, String durata){
+	int stelle = 5;
+
+	/** La programmazione. */
+	ArrayList<Programmazione> programmazione;
+
+	/**
+	 * Instantiates un nuovo film.
+	 *
+	 * @param id
+	 *            l' id
+	 * @param titolo
+	 *            il titolo
+	 * @param annoPubblicazione
+	 *            l' anno pubblicazione
+	 * @param tipo
+	 *            il tipo
+	 * @param durata
+	 *            la durata
+	 * @param programmazione
+	 * 			  le programmazioni del film
+	 */
+	public Film(int id, String titolo, int annoPubblicazione, String tipo, String durata,
+			ArrayList<Programmazione> programmazione) {
 		this.id = id;
 		this.titolo = titolo;
 		this.annoPubblicazione = annoPubblicazione;
 		this.tipo = tipo;
 		this.durata = durata;
+		this.programmazione = programmazione;
 	};
-	
+
 	/**
-	 * Instantiates a new film.
-	 */
-	public Film() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	/**
-	 * Gets the id.
+	 * Gets l' id.
 	 *
-	 * @return the id
+	 * @return l' id
 	 */
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
-	 * Sets the id.
+	 * Sets l' id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            il nuovo id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-	 * Gets the titolo.
+	 * Gets il titolo.
 	 *
-	 * @return the titolo
+	 * @return il titolo
 	 */
 	public String getTitolo() {
 		return titolo;
 	}
-	
+
 	/**
-	 * Sets the titolo.
+	 * Sets il titolo.
 	 *
-	 * @param titolo the new titolo
+	 * @param titolo
+	 *            il nuovo titolo
 	 */
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	
+
 	/**
-	 * Gets the anno pubblicazione.
+	 * Gets l' anno di pubblicazione.
 	 *
-	 * @return the anno pubblicazione
+	 * @return l' anno di pubblicazione
 	 */
 	public int getAnnoPubblicazione() {
 		return annoPubblicazione;
 	}
-	
+
 	/**
-	 * Sets the anno pubblicazione.
+	 * Sets l'anno di pubblicazione.
 	 *
-	 * @param annoPubblicazione the new anno pubblicazione
+	 * @param annoPubblicazione
+	 *            il nuovo anno di pubblicazione
 	 */
 	public void setAnnoPubblicazione(int annoPubblicazione) {
 		this.annoPubblicazione = annoPubblicazione;
 	}
-	
+
 	/**
-	 * Gets the tipo.
+	 * Gets il tipo.
 	 *
-	 * @return the tipo
+	 * @return il tipo
 	 */
 	public String getTipo() {
 		return tipo;
 	}
-	
+
 	/**
-	 * Sets the tipo.
+	 * Sets il tipo.
 	 *
-	 * @param tipo the new tipo
+	 * @param tipo
+	 *            il nuovo tipo
 	 */
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	/**
-	 * Gets the durata.
+	 * Gets la durata.
 	 *
-	 * @return the durata
+	 * @return la durata
 	 */
 	public String getDurata() {
 		return durata;
 	}
-	
+
 	/**
-	 * Sets the durata.
+	 * Sets la durata.
 	 *
-	 * @param durata the new durata
+	 * @param durata
+	 *            la nuova durata
 	 */
 	public void setDurata(String durata) {
 		this.durata = durata;
 	}
+
 	/**
-	 * Ricerca film, ricerca tra i film presenti nel cinema se esiste quello con il titolo cercato
-	 * @param cinema the cinema
-	 * @param filmTitolo the film titolo
-	 * @return the film, se esiste e trasmesso nel cinema selezionato
+	 * Gets le stelle.
+	 *
+	 * @return le stelle
 	 */
-	public Film ricercaFilm(Cinema cinema, String filmTitolo){
-		for(int i = 0; i<cinema.film.size(); i++){
-			if(cinema.film.get(i).getTitolo().toLowerCase().contains(filmTitolo) || cinema.film.get(i).getTitolo().contains(filmTitolo)){
-				return cinema.film.get(i);
-			} 
-		}
-		System.out.println("Nessun film con il seguente titolo presente");
-		return null;
+	public int getStelle() {
+		return stelle;
+	}
+
+	/**
+	 * Sets le stelle.
+	 *
+	 * @param stelle
+	 *            le nuove stelle
+	 */
+	public void setStelle(int stelle) {
+		this.stelle = stelle;
+	}
+
+	/**
+	 * Gets la programmazione.
+	 *
+	 * @return la programmazione
+	 */
+	public ArrayList<Programmazione> getProgrammazione() {
+		return programmazione;
+	}
+
+	/**
+	 * Sets la programmazione.
+	 *
+	 * @param programmazione
+	 *            la nuova programmazione
+	 */
+	public void setProgrammazione(ArrayList<Programmazione> programmazione) {
+		this.programmazione = programmazione;
+	}
+
+	/**
+	 * Scheda film.
+	 *
+	 * @return la scheda del film intesa come: genere, durata, anno di
+	 *         pubblicazione, media stelle
+	 */
+	public ArrayList<String> schedaFilm() {
+		ArrayList<String> dettagli = new ArrayList<String>();
+		dettagli.add(this.tipo);
+		dettagli.add(this.durata);
+		dettagli.add(String.valueOf(this.annoPubblicazione));
+		dettagli.add(String.valueOf(this.stelle));
+		return dettagli;
+
 	}
 }
